@@ -98,10 +98,9 @@ class ImageOptimizerForm extends ConfigFormBase {
       return $form;
     }
 
-    if ($config->get('image_optimization') == 1){
-      if(!$this->api->ioEnabled($config->get('service_id'))){
-        $this->messenger()->addError($this->t('You have Fastly image optimization enabled in configuration but you don\'t have it available on service!'));
-      }
+    if(!$this->api->ioEnabled($config->get('service_id'))){
+      $this->messenger()->addWarning($this->t('You don\'t have Image Optimizer available on service! Please contact your sales rep or send an email to support@fastly.com to request image optimization activation for your fastly service!'));
+      return $form;
     }
 
     $form['io'] = [
